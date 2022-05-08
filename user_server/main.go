@@ -1,12 +1,15 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strings"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type User struct {
@@ -18,6 +21,8 @@ type User struct {
 
 var UserById = make(map[int]*User)
 var UserByName = make(map[string][]*User)
+
+var DB *sql.DB
 
 func sayHelloName(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
